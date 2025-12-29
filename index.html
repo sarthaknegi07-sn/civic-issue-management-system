@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Civic Issue Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <h1 class="brand">CIMS</h1>
+      <nav class="nav" id="nav"></nav>
+    </div>
+  </header>
+
+  <main id="app" class="container"></main>
+
+  <!-- Templates -->
+  <template id="tpl-landing">
+    <section class="landing-boxes">
+      <a href="#/user" class="home-box">USER</a>
+      <a href="#/admin/login" class="home-box">ADMIN</a>
+    </section>
+  </template>
+
+  <template id="tpl-user-home">
+    <section class="dashboard-vertical">
+      <a class="btn primary dash-btn" href="#/user/write">Write Complaint</a>
+      <a class="btn primary dash-btn" href="#/user/track">Track Status</a>
+      <a class="btn primary dash-btn" href="#/user/feedback">Give Feedback</a>
+    </section>
+  </template>
+
+  <template id="tpl-write">
+    <section class="card">
+      <h3>Write Complaint</h3>
+      <form id="form-complaint">
+        <label>Category
+          <select name="category" required>
+            <option>Road Issues</option>
+            <option>Water Supply</option>
+            <option>Electricity</option>
+            <option>Garbage Collection</option>
+            <option>Street Lights</option>
+            <option>Others</option>
+          </select>
+        </label>
+        <label>Location
+          <input type="text" name="location" placeholder="Area / Landmark" required />
+        </label>
+        <label>Description
+          <textarea name="description" rows="6" required></textarea>
+        </label>
+        <div class="form-actions">
+          <button class="btn primary" type="submit">Submit</button>
+          <button class="btn" type="reset">Clear</button>
+        </div>
+      </form>
+      <div id="ack" class="ack hidden"></div>
+    </section>
+  </template>
+
+  <template id="tpl-track">
+    <section class="card">
+      <h3>Track Status</h3>
+      <form id="form-track">
+        <input id="track-id" type="text" placeholder="Enter Unique ID" required />
+        <button class="btn primary" type="submit">Check</button>
+      </form>
+      <div id="track-result"></div>
+    </section>
+  </template>
+
+  <template id="tpl-feedback">
+    <section class="card">
+      <h3>Give Feedback</h3>
+      <form id="form-fetch">
+        <input id="fb-id" type="text" placeholder="Enter Unique ID" required />
+        <button class="btn primary" type="submit">Find</button>
+      </form>
+      <div id="fb-panel" class="hidden">
+        <p>Complaint <code id="fb-id-show"></code> found. Please provide feedback.</p>
+        <form id="form-feedback">
+          <label>Rating
+            <select name="rating" required>
+              <option>1 - Very Poor</option>
+              <option>2 - Poor</option>
+              <option>3 - Fair</option>
+              <option>4 - Good</option>
+              <option>5 - Excellent</option>
+            </select>
+          </label>
+          <label>Comments
+            <textarea name="comments" rows="3" required></textarea>
+          </label>
+          <button class="btn primary" type="submit">Submit Feedback</button>
+        </form>
+        <div id="fb-ack" class="ack hidden"></div>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-admin-login">
+    <section class="card narrow">
+      <h3>Admin Login</h3>
+      <form id="form-admin-login">
+        <label>Username<input type="text" name="username" required /></label>
+        <label>Password<input type="password" name="password" required /></label>
+        <button class="btn primary" type="submit">Login</button>
+      </form>
+    </section>
+  </template>
+
+  <template id="tpl-admin-desk">
+    <section class="card">
+      <div class="desk-head">
+        <h3>Admin Desk</h3>
+        <button id="btn-logout" class="btn danger">Logout</button>
+      </div>
+      <table class="table" id="tbl-admin">
+        <thead>
+          <tr><th>ID</th><th>Category</th><th>Location</th><th>Status</th><th>Date</th><th>Update</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </template>
+
+  <template id="tpl-404">
+    <section class="card"><h3>404</h3><p>Use the menu to navigate.</p></section>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
